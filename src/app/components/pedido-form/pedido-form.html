@@ -1,0 +1,52 @@
+<div class="container mt-4">
+  <h2>📝 Novo Pedido</h2>
+
+  <form [formGroup]="form" (ngSubmit)="salvar()">
+
+    <div class="row mb-3">
+      <div class="col-md-2">
+        <label>Mesa *</label>
+        <input type="number" formControlName="idMesa" class="form-control" placeholder="Nº">
+      </div>
+      <div class="col-md-10">
+        <label>Observações Gerais</label>
+        <input type="text" formControlName="observacoes" class="form-control" placeholder="Ex: Cliente com pressa">
+      </div>
+    </div>
+
+    <hr>
+
+    <h4>Itens do Pedido</h4>
+    <div formArrayName="itens">
+      <div *ngFor="let item of itensForm.controls; let i=index" [formGroupName]="i" class="card mb-2">
+        <div class="card-body">
+          <div class="row align-items-end">
+            <div class="col-md-3">
+              <label>ID do Item (Menu) *</label>
+              <input type="number" formControlName="id_item" class="form-control" placeholder="ID">
+            </div>
+            <div class="col-md-2">
+              <label>Qtd *</label>
+              <input type="number" formControlName="quantidade" class="form-control">
+            </div>
+            <div class="col-md-5">
+              <label>Obs. do Item</label>
+              <input type="text" formControlName="observacao" class="form-control" placeholder="Ex: Sem cebola">
+            </div>
+            <div class="col-md-2">
+              <button type="button" class="btn btn-danger w-100" (click)="removerItem(i)" *ngIf="i > 0">Remover</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-secondary mb-3 mt-2" (click)="adicionarItem()">+ Adicionar Outro Item</button>
+
+    <div class="d-flex gap-2">
+      <button type="submit" class="btn btn-success btn-lg" [disabled]="form.invalid">Finalizar Pedido</button>
+      <a routerLink="/" class="btn btn-outline-secondary btn-lg">Cancelar</a>
+    </div>
+
+  </form>
+</div>
